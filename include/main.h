@@ -13,4 +13,6 @@
 #include "LedControl.h"
 #include "IIC.h"
 
+void Confinguration(void) ;// 外设初始化总函数
+
 #endif

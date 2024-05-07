@@ -9,8 +9,8 @@ void IIC_Init()
 void IIC_Transmission()
 {
   Wire.beginTransmission(0xAA); // 向地址为0xAA的从机传送数据
-  // Wire.write("x is ");        		// 发送5B的字符串
-  // Wire.write(x);              		// 发送1B的数据
+  Wire.write("can you get me? ");        		// 发送的字符串
+  Wire.write(11);              		// 发送的数据
   Wire.endTransmission(); // 结束传送
 }
 
