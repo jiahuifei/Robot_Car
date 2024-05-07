@@ -21,11 +21,11 @@ void receiveEvent(int Angthing)
   // 循环读取收到的数据，最后一个数据单独读取
   while (1 < Wire.available())
   {
-     // 以字符形式接收数据
-    Serial.print(Wire.read());      // 串口输出该字符串
+    char c = Wire.read(); // 以字符形式接收数据
+    Serial.print(c);      // 串口输出该字符串
   }
-  // 以整型形式接收数据
-  Serial.println(Wire.read());   // 串口输出该整型变量
+  int x = Wire.read(); // 以整型形式接收数据
+  Serial.println(x);   // 串口输出该整型变量
 }
 // 每当主机请求数据时,该函数便会执行
 // 在setup()中,该函数被注册为一个事件
