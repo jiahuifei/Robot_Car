@@ -3,8 +3,16 @@
 void IIC_Init()
 {
   Wire.begin(0xAA);             // Wire初始化, 并以从设备地址0xAA的身份加入IIc总线
+}
+
+void IIC_Receieve()
+{
   Wire.onReceive(receiveEvent); // 注册一个IIC事件，用于响应主机的数据发送
+}
+void IIC_Request()
+{
   Wire.onRequest(requestEvent); // 注册一个IIC事件，用于响应主机的数据请求
+
 }
 
 // 当主机发送的数据被收到时，将触发 receiveEvent() 事件

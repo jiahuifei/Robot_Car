@@ -16,4 +16,6 @@
 #include "HC_SR04.h"
 #include "Grayscale.h"
 
+void Confinguration();
+
 #endif
