@@ -10,6 +10,7 @@ void setup()
 void loop()
 {
   IIC_Transmission();
+  delay(500);
 }
 void Confinguration(void) // 外设初始化总函数
 {
