@@ -13,5 +13,5 @@ float Distance_Check()
     digitalWrite(Trig_Pin,HIGH);
     delayMicroseconds(10);
     digitalWrite(Trig_Pin,LOW);
-    return (pulseIn(Echo_Pin,HIGH)/58);
+    return (pulseIn(Echo_Pin,HIGH)/58.0);
 }
