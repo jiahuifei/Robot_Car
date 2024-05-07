@@ -6,11 +6,12 @@ void IIC_Init()
 }
 
 // 定义一个byte变量以便串口调试
-void IIC_Transmission()
+void IIC_Transmission(u8 addr,Information Inform)
 {
-  Wire.beginTransmission(0xAA); // 向地址为0xAA的从机传送数据
-  Wire.write("can you get me? ");        		// 发送的字符串
-  Wire.write(11);              		// 发送的数据
+  Wire.beginTransmission(addr); // 向地址为0xAA的从机传送数据
+  Wire.write(Inform.head);        		// 发送的字符串
+  Wire.write(Inform.u8date);          // 发送的u8数据
+  Wire.write(Inform.longdate);          // 发送的float数据
   Wire.endTransmission(); // 结束传送
 }
 

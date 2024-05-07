@@ -12,6 +12,11 @@
 #include "Servo_Driver.h"
 #include "LedControl.h"
 #include "IIC.h"
+#include "HC_SR04.h"
+//宏定义变量
+#define XiepoHighdis 2 
+#define LooutiHighdis 2
+#define Servent_Address 0xAA
 
 void Confinguration(void) ;// 外设初始化总函数
 

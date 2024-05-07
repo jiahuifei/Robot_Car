@@ -6,13 +6,21 @@ void Confinguration(void); // 外设初始化总函数
 void setup()
 {
   Confinguration();
+
 }
 void loop()
 {
-  IIC_Transmission();
-  delay(500);
+    //超声传感器检测
+    if(Distance_Check() < XiepoHighdis)
+    {
+      IIC_State.u8date=2;
+      IIC_Transmission(Servent_Address,IIC_State);
+    }
+  
 }
 void Confinguration(void) // 外设初始化总函数
 {
   IIC_Init();
+  HC_SR04_Pin_Init();
+
 }
