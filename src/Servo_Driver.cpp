@@ -1,11 +1,11 @@
 #include "main.h"
 //定义舵机IO口
-uint8_t ServoPin[3]={4,7,11};
+uint8_t ServoPin[2]={Servo_Arm_Pin,Servo_Hand_Pin};
 //定义舵机数组
-Servo MyServo[3];
+Servo MyServo[2];
 /*
   舵机使能函数
-  参数：舵机序数;0,1,2
+  参数：舵机序数;0,1
 */
 void Servo_Enable(uint8_t Servo_Serial)
 {
@@ -16,7 +16,7 @@ void Servo_Enable(uint8_t Servo_Serial)
 
 /*
   舵机使能函数
-  参数：舵机序数;1,2,3
+  参数：舵机序数;1,2
 */
 void Servo_Disable(uint8_t Servo_Serial)
 {
@@ -26,7 +26,7 @@ void Servo_Disable(uint8_t Servo_Serial)
 
 /*
   舵机转动函数
-  参数1：舵机序数;1,2,3
+  参数1：舵机序数;1,2
   参数2：转动角度数值
 */
 void ServoGo(int Servo_Serial , int where)

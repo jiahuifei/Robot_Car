@@ -2,11 +2,12 @@
 #define __GRAYSCALE_H
 
 //循迹灰度传感器引脚
-#define Trace_Left_Pin A3
-#define Trace_Right_Pin  A2
+#define Trace_Left_Pin A4
+#define Trace_Right_Pin  A3
 
 //定义近红外引脚
-#define RedLight_Pin  A0
+#define Top_RedLight_Pin_  12
+#define Bottom_RedLight_Pin_  11
 
 //循迹灰度传感器参数
 #define Trace_L_max 1000
