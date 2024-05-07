@@ -9,7 +9,8 @@ void Trace_Gray_Pin_Init()
 // 近红外引脚初始化
 void RedLight_Pin_Init()
 {
-    pinMode(RedLight_Pin , INPUT);
+    pinMode(Top_RedLight_Pin_ , INPUT);
+    pinMode(Bottom_RedLight_Pin_,INPUT);
 }
 
 // 循迹灰度数据处理

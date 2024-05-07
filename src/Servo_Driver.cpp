@@ -1,6 +1,6 @@
 #include "main.h"
 //定义舵机IO口
-uint8_t ServoPin[3]={4,7,11};
+uint8_t ServoPin[2]={Servo_Arm_Pin,Servo_Hand_Pin};
 //定义舵机数组
 Servo MyServo[3];
 /*
