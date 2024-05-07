@@ -9,7 +9,6 @@ void setup()
 void loop()
 {
     IIC_Receieve();
-    delay(500);
 }
 
 void Confinguration()

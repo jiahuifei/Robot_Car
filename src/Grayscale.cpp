@@ -24,19 +24,21 @@ long map(long x, long in_min, long in_max, long out_min, long out_max)
 */
 long Trace_Gray_Output(char Gray_Serial)
 {
+    long value;
     switch (Gray_Serial)
     {
-    case 'r':
-    case 'R':
-    {
-        return (map(Traceright_value, Trace_R_min, Trace_R_max, 0, 255));
-        break;
+        case 'r':
+        case 'R':
+        {
+            value= map(Traceright_value, Trace_R_min, Trace_R_max, 0, 255);
+            break;
+        }
+        case 'l':
+        case 'L':
+        {
+            value= map(Traceleft_value, Trace_L_min, Trace_L_max, 0, 255);
+            break;
+        }
     }
-    case 'l':
-    case 'L':
-    {
-        return (map(Traceleft_value, Trace_L_min, Trace_L_max, 0, 255));
-        break;
-    }
-    }
+    return value;
 }
