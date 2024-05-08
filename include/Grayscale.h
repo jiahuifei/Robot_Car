@@ -12,7 +12,7 @@
 //循迹灰度传感器参数
 #define Trace_L_max 1000
 #define Trace_L_min 0
-#define Trace_R_max 700
+#define Trace_R_max 1000
 #define Trace_R_min 0
 
 //宏定义函数

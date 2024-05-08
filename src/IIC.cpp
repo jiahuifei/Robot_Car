@@ -18,14 +18,29 @@ void IIC_Request()
 // 当主机发送的数据被收到时，将触发 receiveEvent() 事件
 void receiveEvent(int Angthing)
 {
-  // 循环读取收到的数据，最后一个数据单独读取
-  while (1 < Wire.available())
+  while (Wire.available()>0)
   {
-    char c = Wire.read(); // 以字符形式接收数据
-    Serial.print(c);      // 串口输出该字符串
+    if(flag==0)
+    {
+      IIC_DataGet.head = Wire.read(); // 以字符形式接收数据
+      Serial.println(IIC_DataGet.head); // 串口输出该字符串
+      flag++;
+    }else if(flag==1)
+    {
+      IIC_DataGet.u8date= Wire.read(); // 以字符形式接收数据
+      Serial.println(IIC_DataGet.u8date); // 串口输出该字符串
+      flag++;
+    }else if(flag==2)
+    {
+      IIC_DataGet.u16date= Wire.read(); // 以字符形式接收数据
+      Serial.println(IIC_DataGet.u16date); // 串口输出该字符串
+      flag=0;
+    }
+
+      // long Angle= Wire.read(); // 以字符形式接收数据
+      // Serial.println(Angle); // 串口输出该字符串
+
   }
-  int x = Wire.read(); // 以整型形式接收数据
-  Serial.println(x);   // 串口输出该整型变量
 }
 // 每当主机请求数据时,该函数便会执行
 // 在setup()中,该函数被注册为一个事件

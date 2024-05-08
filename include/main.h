@@ -17,5 +17,8 @@
 #include "Grayscale.h"
 
 void Confinguration();
-
+void StateZero();//灰度循迹
+void StateOne();
+void StateTwo();
+void StateThree();
 #endif

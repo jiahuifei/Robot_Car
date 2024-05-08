@@ -11,8 +11,11 @@
 //定义转向
 #define forward 0
 #define backward 1
-//相关函数
 
+#define R_judge 110
+#define L_judge -110
+
+//相关函数
 //电机引脚初始函数
 void Motor_Pin_Init(void);
 
@@ -21,12 +24,14 @@ void Motor_Pin_Init(void);
   第一个参数：电机序号;a/A,b/B
   第二个参数：移动方向;0,1
 */
-void Motor_Start(char Motor_Serial,uint8_t dirction);
+void Motor_Start(char Motor_Serial,int8_t Speed);
 
 /*
   电机停止函数
   第一个参数：电机序号;a/A,b/B
 */
 void Motor_Stop(char Motor_Serial);
+
+void Trace();
 
 #endif
