@@ -1,5 +1,7 @@
 #include "main.h"
-
+static u8 flag=0;
+LedControl lc=LedControl(12,11,13,1);
+u8 lc1=0,lc2=0,lc3=0;
 void IIC_Init()
 {
   Wire.begin(0xAA);             // Wire初始化, 并以从设备地址0xAA的身份加入IIc总线
@@ -23,16 +25,19 @@ void receiveEvent(int Angthing)
     if(flag==0)
     {
       IIC_DataGet.head = Wire.read(); // 以字符形式接收数据
+      lc.setRow(0,0,lc1++);
       Serial.println(IIC_DataGet.head); // 串口输出该字符串
       flag++;
     }else if(flag==1)
     {
       IIC_DataGet.u8date= Wire.read(); // 以字符形式接收数据
+      lc.setRow(0,1,lc2++);
       Serial.println(IIC_DataGet.u8date); // 串口输出该字符串
       flag++;
     }else if(flag==2)
     {
       IIC_DataGet.u16date= Wire.read(); // 以字符形式接收数据
+      lc.setRow(0,2,lc3++);
       Serial.println(IIC_DataGet.u16date); // 串口输出该字符串
       flag=0;
     }

@@ -1,13 +1,13 @@
 #include "main.h"
-
+extern LedControl lc;
+extern u8 lc1,lc2,lc3;
 void setup()
 {
     Confinguration();
-//   LedControl lc=LedControl(12,11,13,1);
 
-//   lc.shutdown(0,false);
-//   lc.setIntensity(0,8);
-//   lc.clearDisplay(0);
+  lc.shutdown(0,false);
+  lc.setIntensity(0,4);
+  lc.clearDisplay(0);
   
 //   lc.setRow(0,0,0xff);
 //   lc.setRow(0,1,B10000001);
@@ -22,11 +22,11 @@ void setup()
 
 void loop()
 {
-    if(IIC_DataGet.head=='s')
-    {
-        if(IIC_DataGet.u8date==1)
-            StateZero();
-    }
+    // if(IIC_DataGet.head=='s')
+    // {
+    //     if(IIC_DataGet.u8date==1)
+    //         StateZero();
+    // }
 }
 
 void Confinguration()
