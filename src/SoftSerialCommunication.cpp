@@ -1,4 +1,4 @@
-#include "SoftSerialCommunication.h"
+#include "main.h"
 
 template <typename T>
 SoftSerialCommunication<T>::SoftSerialCommunication(int rx, int tx) : _mySerial(rx, tx) {}
