@@ -1,13 +1,15 @@
 #include "main.h"
 extern LedControl lc;
 extern u8 lc1,lc2,lc3;
+SoftwareSerial mySerial(13,11);
+u8 RecieveData[6],RDcounter=0;
+u16 RDlongData;
 void setup()
 {
     Confinguration();
-
-  lc.shutdown(0,false);
-  lc.setIntensity(0,4);
-  lc.clearDisplay(0);
+//   lc.shutdown(0,false);
+//   lc.setIntensity(0,4);
+//   lc.clearDisplay(0);
   
 //   lc.setRow(0,0,0xff);
 //   lc.setRow(0,1,B10000001);
@@ -27,13 +29,22 @@ void loop()
     //     if(IIC_DataGet.u8date==1)
     //         StateZero();
     // }
+    while(mySerial.available())
+    {
+        RecieveData[RDcounter]=mySerial.read();
+        RDcounter++;
+    }
+    RDcounter=0;
+    Serial.print(RecieveData[0]);
+    RDlongData= RecieveData[2]
 }
 
 void Confinguration()
 {
-    IIC_Init();
+    // IIC_Init();
     // HC_SR04_Pin_Init();
-    Serial.begin(9600);//串口初始化化
+    Serial.begin(115200);//串口初始化化
+    mySerial.begin(115200);
 }
 
 void StateZero()//灰度循迹

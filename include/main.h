@@ -6,6 +6,7 @@
 #include "MsTimer2.h"  
 #include <Servo.h>
 #include <Wire.h>
+#include "SoftwareSerial.h"
 //用户头文件
 #include "MPU6050.h"
 #include "MyPID.h"
