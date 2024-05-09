@@ -39,6 +39,7 @@ void receiveEvent(int Angthing)
     {
       IIC_DataGet.intdate = IIC_Read_IntNumber(); // 以字符形式接收数据
       // lc.setRow(0,2,lc3++);
+      AngleValue=IIC_Read_IntNumber();
       Serial.println(IIC_DataGet.intdate); // 串口输出该字符串
       flag = 0;
     }

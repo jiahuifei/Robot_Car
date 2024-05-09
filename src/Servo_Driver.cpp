@@ -16,7 +16,7 @@ void Servo_Enable(uint8_t Servo_Serial)
 
 /*
   舵机使能函数
-  参数：舵机序数;1,2
+  参数：舵机序数;0,1
 */
 void Servo_Disable(uint8_t Servo_Serial)
 {
@@ -26,7 +26,7 @@ void Servo_Disable(uint8_t Servo_Serial)
 
 /*
   舵机转动函数
-  参数1：舵机序数;1,2
+  参数1：舵机序数;0,1
   参数2：转动角度数值
 */
 void ServoGo(int Servo_Serial , int where)

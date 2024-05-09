@@ -43,15 +43,19 @@ void StateZero() // 灰度循迹
 {
     Trace();
 }
-void StateOne() // 灰度循迹
+void StateOne() // 角度循迹
 {
-    Trace();
+    Angle_Trace();
+
 }
-void StateTwo() // 灰度循迹
+void StateTwo() // 过隧道
 {
     Trace();
+    Servo_Enable(0);
+    ServoGo(0,Hole_ServoAngle);
 }
 void StateThree() // 灰度循迹
 {
     Trace();
+    
 }

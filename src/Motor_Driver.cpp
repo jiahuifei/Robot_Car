@@ -1,4 +1,6 @@
 #include "main.h"
+
+static int  AngleValue;
 //电机引脚初始函数
 void Motor_Pin_Init(void)
 {
@@ -87,6 +89,23 @@ void Trace()
     Motor_Start('r',220);
   }
   else // 两侧传感器均探测到黑线，直行
+  {
+    Motor_Start('l',220);
+    Motor_Start('r',220);
+  }
+}
+
+void Angle_Trace()
+{
+  if(AngleValue > Angle_judge)
+  {
+    Motor_Start('L',220);
+    Motor_Start('r',110);
+  }else if (AngleValue > Angle_judge)
+  {
+    Motor_Start('l',110);
+    Motor_Start('r',220);
+  }else
   {
     Motor_Start('l',220);
     Motor_Start('r',220);

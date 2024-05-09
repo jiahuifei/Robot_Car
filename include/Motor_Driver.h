@@ -14,7 +14,9 @@
 
 #define R_judge 110
 #define L_judge -110
+#define Angle_judge 5000 //50度
 
+extern  int  AngleValue;
 //相关函数
 //电机引脚初始函数
 void Motor_Pin_Init(void);
@@ -33,5 +35,6 @@ void Motor_Start(char Motor_Serial,int8_t Speed);
 void Motor_Stop(char Motor_Serial);
 
 void Trace();
+void Angle_Trace();
 
 #endif
