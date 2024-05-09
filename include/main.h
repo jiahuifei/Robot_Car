@@ -16,6 +16,7 @@
 #include "IIC.h"
 #include "HC_SR04.h"
 #include "Grayscale.h"
+#include "SoftSerialCommunication.h"
 
 void Confinguration();
 void StateZero();//灰度循迹

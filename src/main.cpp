@@ -2,8 +2,18 @@
 extern LedControl lc;
 extern u8 lc1,lc2,lc3;
 SoftwareSerial mySerial(13,11);
-u8 RecieveData[6],RDcounter=0;
-int64_t RDlongData;
+
+struct myData
+{
+    char  state;
+    uint8_t  u8data;
+    float   floatdata;
+};
+myData RecieveData;
+SoftSerialCommunication<myData> myComm(13, 11);
+
+
+
 void setup()
 {
     Confinguration();
@@ -30,13 +40,10 @@ void loop()
     //     if(IIC_DataGet.u8date==1)
     //         StateZero();
     // }
-    while(mySerial.available())
-    {
-        RecieveData[RDcounter]=mySerial.read();
-        RDcounter++;
-        Serial.print(RecieveData[RDcounter],HEX);
-    }
-    RDcounter=0;
+    myComm.receive(&RecieveData);
+    Serial.print(RecieveData.state);
+    Serial.print(RecieveData.u8data);
+    Serial.print(RecieveData.floatdata);
     // RDlongData= RecieveData[2]<<12+RecieveData[3]<<8+RecieveData[4]<<4+RecieveData[5];
 }
 
