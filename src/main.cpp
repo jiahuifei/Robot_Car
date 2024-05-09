@@ -19,16 +19,15 @@ struct myData
     float   floatdata;
 };
 myData SendData;
-SoftSerialCommunication<myData> myComm(9, 10);
 
 
 void Confinguration(void) // 外设初始化总函数
 {
-  // IIC_Init();
+  IIC_Init();
   // HC_SR04_Pin_Init();
   // RedLight_Pin_Init();
   Serial.begin(115200);
-  myComm.begin(115200);
+  mySerial.begin(115200);
 }
 
 void setup()
@@ -43,10 +42,9 @@ void loop()
   // 超声传感器检测斜坡
   if ( myHC.read()< Highdis)
   {
-    SendData.state = 's';
-    SendData.u8data= 1;
-    myComm.send(SendData);
-    // IIC_Transmission(Servent_Address,IIC_State);
+    IIC_State.u8date= 1;
+    IIC_State.intdate=0;
+    IIC_Transmission(Servent_Address,IIC_State);
     // Serial.print(IIC_State.u8date,HEX);
     // lc.setRow(0, 0, lc1++);
     // Serial.println("i am here");
@@ -55,10 +53,9 @@ void loop()
   // 隧道红外检测
   if (!Top_RedLight_value)
   {
-    SendData.state = 's';
-    SendData.u8data= 2;
-    myComm.send(SendData);
-    // IIC_Transmission(Servent_Address, IIC_State);
+    IIC_State.u8date= 2;
+    IIC_State.intdate=0;
+    IIC_Transmission(Servent_Address, IIC_State);
     // lc.setRow(0, 1, lc2++);
     // Serial.println("i am here1");
     // Serial.println();
@@ -66,16 +63,16 @@ void loop()
   //  任务红外检测
   if (!Bottom_RedLight_value)
   {
-    SendData.state = 's';
-    SendData.u8data= 3;
-    myComm.send(SendData);
-    // IIC_Transmission(Servent_Address, IIC_State);
+    IIC_State.u8date= 3;
+    IIC_State.intdate=0;
+    IIC_Transmission(Servent_Address, IIC_State);
     // lc.setRow(0, 2, lc3++);
     // Serial.println("i am here2");
     // Serial.println();
   }
   serialEvent();
   delay(1);
+
 }
 void serialEvent()
 {
@@ -100,26 +97,19 @@ void serialEvent()
           angle[0] = (short(Re_buf[3] << 8 | Re_buf[2])) / 32768.0 * 180;
           angle[1] = (short(Re_buf[5] << 8 | Re_buf[4])) / 32768.0 * 180;
           angle[2] = (short(Re_buf[7] << 8 | Re_buf[6])) / 32768.0 * 180;
-          // Serial.print("<any>:");
-          // Serial.print(angle[0]);
-          // Serial.print(",");
-          // // Serial.print(" ");
-          // Serial.print(angle[1]);
-          // Serial.print(",");
-          // // Serial.print(" ");
-          // Serial.print(angle[2]);
-          // Serial.println();
-          int64_t SendAngle=int64_t (angle[2]*100);
-          if(SendHex[0]=='s')
-          {
-            SendHex[0] = 'a';
-            SendHex[1] = 0;
-            mySerial.write(SendAngle>>32);
-            mySerial.write(SendAngle>>16);
-            mySerial.write(SendAngle>>8);
-            mySerial.write(SendAngle);
+          Serial.print("<any>:");
+          Serial.print(angle[0]);
+          Serial.print(",");
+          // Serial.print(" ");
+          Serial.print(angle[1]);
+          Serial.print(",");
+          // Serial.print(" ");
+          Serial.print(angle[2]);
+          Serial.println();
 
-          }
+          IIC_Duoji.u8date=0;
+          IIC_Duoji.intdate=int (angle[2]*100);
+          IIC_Transmission(Servent_Address,IIC_Duoji);
           break;
         }
       }
