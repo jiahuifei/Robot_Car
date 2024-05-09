@@ -17,6 +17,7 @@
 #include "IIC.h"
 #include "HC_SR04.h"
 #include "Grayscale.h"
+#include "SoftSerialCommunication.h"
 
 //宏定义变量
 #define Highdis 5.0
