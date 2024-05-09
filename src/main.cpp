@@ -3,7 +3,7 @@ extern LedControl lc;
 extern u8 lc1,lc2,lc3;
 SoftwareSerial mySerial(13,11);
 u8 RecieveData[6],RDcounter=0;
-u16 RDlongData;
+int64_t RDlongData;
 void setup()
 {
     Confinguration();
@@ -19,7 +19,8 @@ void setup()
 //   lc.setRow(0,5,B10100101);
 //   lc.setRow(0,6,B10011001);
 //   lc.setRow(0,7,0xff);
-    IIC_Receieve();  
+    // IIC_Receieve();  
+
 }
 
 void loop()
@@ -33,10 +34,10 @@ void loop()
     {
         RecieveData[RDcounter]=mySerial.read();
         RDcounter++;
+        Serial.print(RecieveData[RDcounter],HEX);
     }
     RDcounter=0;
-    Serial.print(RecieveData[0]);
-    RDlongData= RecieveData[2]
+    // RDlongData= RecieveData[2]<<12+RecieveData[3]<<8+RecieveData[4]<<4+RecieveData[5];
 }
 
 void Confinguration()
