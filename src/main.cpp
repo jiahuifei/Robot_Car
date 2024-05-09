@@ -10,6 +10,8 @@ unsigned char Re_buf[11], counter = 0;
 unsigned char sign = 0;
 static float angle[3];
 
+u8 SendHex[6];
+
 void Confinguration(void) // 外设初始化总函数
 {
   // IIC_Init();
@@ -31,10 +33,10 @@ void loop()
   // 超声传感器检测斜坡
   if ( myHC.read()< Highdis)
   {
-    IIC_State.u8date = 1;
-    IIC_State.longdate = 0;
-    mySerial.print(IIC_State.u8date);
-    mySerial.print(IIC_State.longdate);
+    SendHex[0] = 's';
+    SendHex[1] = 1;
+    mySerial.write(SendHex[0]);
+    mySerial.write(SendHex[1]);
     // IIC_Transmission(Servent_Address,IIC_State);
     // Serial.print(IIC_State.u8date,HEX);
     // lc.setRow(0, 0, lc1++);
@@ -44,10 +46,10 @@ void loop()
   // 隧道红外检测
   if (!Top_RedLight_value)
   {
-    IIC_State.u8date = 2;
-    IIC_State.longdate = 0;
-    mySerial.println(IIC_State.u8date);
-    mySerial.println(IIC_State.longdate);
+    SendHex[0] = 's';
+    SendHex[1] = 2;
+    mySerial.write(SendHex[0]);
+    mySerial.write(SendHex[1]);
     // IIC_Transmission(Servent_Address, IIC_State);
     // lc.setRow(0, 1, lc2++);
     // Serial.println("i am here1");
@@ -56,10 +58,10 @@ void loop()
   //  任务红外检测
   if (!Bottom_RedLight_value)
   {
-    IIC_State.u8date = 3;
-    IIC_State.longdate = 0;
-    mySerial.println(IIC_State.u8date);
-    mySerial.println(IIC_State.longdate);
+    SendHex[0] = 's';
+    SendHex[1] = 3;
+    mySerial.write(SendHex[0]);
+    mySerial.write(SendHex[1]);
     // IIC_Transmission(Servent_Address, IIC_State);
     // lc.setRow(0, 2, lc3++);
     // Serial.println("i am here2");
@@ -100,12 +102,16 @@ void serialEvent()
           // // Serial.print(" ");
           // Serial.print(angle[2]);
           // Serial.println();
-          if(IIC_State.u8date==1)
+          int64_t SendAngle=int64_t (angle[2]*100);
+          if(SendHex[0]=='s')
           {
-            IIC_Duoji.u8date=0;
-            IIC_Duoji.longdate=long (angle[2]*100);
-            mySerial.println(IIC_Duoji.u8date);
-            mySerial.println(IIC_Duoji.longdate);
+            SendHex[0] = 'a';
+            SendHex[1] = 0;
+            mySerial.write(SendAngle>>32);
+            mySerial.write(SendAngle>>16);
+            mySerial.write(SendAngle>>8);
+            mySerial.write(SendAngle);
+
           }
           break;
         }

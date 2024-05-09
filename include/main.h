@@ -1,10 +1,6 @@
 #ifndef __MAIN_H
 #define __MAIN_H
 
-extern unsigned char Re_buf[11], counter ;
-extern unsigned char sign ;
-extern float angle[3];
-
 //系统头文件
 #include "Arduino.h"
 #include "MsTimer2.h"  
