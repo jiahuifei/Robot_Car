@@ -8,14 +8,14 @@ int Actual_value;
   * @retval 无
   */
 void PID_Param_Init(PID PosionPID) {
-  PosionPID.Target_value = 30;
+  PosionPID.Target_value = 0.0;
   PosionPID.Output_value = 0.0;
   PosionPID.NowError = 0.0;
   PosionPID.LastError = 0.0;
   PosionPID.Integral = 0.0;
-  PosionPID.Kp = 0.4;
-  PosionPID.Ki = 0.5;
-  PosionPID.Kd = 0.5;
+  PosionPID.Kp = 0.02;
+  PosionPID.Ki = 0.1;
+  PosionPID.Kd = 0.05;
 }
 
 /**

@@ -23,5 +23,6 @@
 #define Servent_Address 0xAA
 
 void Confinguration(void) ;// 外设初始化总函数
+void myTimerFunction();
 void serialEvent();
 #endif
