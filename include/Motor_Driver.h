@@ -12,9 +12,9 @@
 #define forward 0
 #define backward 1
 
-#define R_judge 110
-#define L_judge -110
-#define Angle_judge 5000 //50度
+#define R_judge 70
+#define L_judge -70
+#define Angle_judge 0 //0度
 
 extern  int  AngleValue;
 //相关函数
@@ -26,7 +26,7 @@ void Motor_Pin_Init(void);
   第一个参数：电机序号;a/A,b/B
   第二个参数：移动方向;0,1
 */
-void Motor_Start(char Motor_Serial,int8_t Speed);
+void Motor_Start(char Motor_Serial,int16_t Speed);
 
 /*
   电机停止函数

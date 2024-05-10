@@ -1,6 +1,6 @@
 #include "main.h"
 
-static int  AngleValue;
+int  AngleValue;
 //电机引脚初始函数
 void Motor_Pin_Init(void)
 {
@@ -15,7 +15,7 @@ void Motor_Pin_Init(void)
   第一个参数：电机序号;r/R,l/L
   第二个参数：移动方向和速度;-255~255
 */
-void Motor_Start(char Motor_Serial,int8_t Speed)
+void Motor_Start(char Motor_Serial,int16_t Speed)
 {
   switch (Motor_Serial)
   {
@@ -77,7 +77,16 @@ void Motor_Stop(char Motor_Serial)
 
 void Trace()
 {
-  int8_t turn_judge = Trace_Gray_Output('l') - Trace_Gray_Output('r');
+  int turn_judge = Trace_Gray_Output('l') - Trace_Gray_Output('r');
+          // Serial.print("<any>:");
+          // Serial.print(Trace_Gray_Output('l'));
+          // Serial.print(",");
+          // // Serial.print(" ");
+          // Serial.print(Trace_Gray_Output('r'));
+          // Serial.print(",");
+          // // Serial.print(" ");
+          // Serial.print(turn_judge);
+          // Serial.println();
   if (turn_judge > R_judge) // 如果右侧传感器探测到黑线，向右转
   {
     Motor_Start('L',220);
@@ -97,17 +106,22 @@ void Trace()
 
 void Angle_Trace()
 {
-  if(AngleValue > Angle_judge)
+    AngleValue=IIC_DataGet.intdate;
+    Serial.println(AngleValue);
+  if(AngleValue/100.0>1.5)//右转
   {
-    Motor_Start('L',220);
-    Motor_Start('r',110);
-  }else if (AngleValue > Angle_judge)
+    // Motor_Start('L',220);
+    // Motor_Start('r',-150);
+    Serial.println("r");
+  }else if (AngleValue/100.0<-1.5)//左转
   {
-    Motor_Start('l',110);
-    Motor_Start('r',220);
+    // Motor_Start('l',-150);
+    // Motor_Start('r',220);
+     Serial.println("l");
   }else
   {
-    Motor_Start('l',220);
-    Motor_Start('r',220);
+    // Motor_Start('l',220);
+    // Motor_Start('r',220);
+    Serial.println("z");
   }
 }

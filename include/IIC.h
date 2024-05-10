@@ -14,7 +14,6 @@ static Information IIC_DataGet=
     .u8date=0,
     .intdate=0
 };
-
 void IIC_Init();
 void IIC_Receieve();
 void IIC_Request();

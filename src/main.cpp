@@ -1,8 +1,7 @@
 #include "main.h"
-extern LedControl lc;
-extern u8 lc1, lc2, lc3;
-SoftwareSerial mySerial(13, 11);
-
+// extern LedControl lc;
+// extern u8 lc1, lc2, lc3;
+// SoftwareSerial mySerial(13, 11);
 
 void setup()
 {
@@ -26,8 +25,12 @@ void loop()
 {
     // if(IIC_DataGet.head=='s')
     // {
-    //     if(IIC_DataGet.u8date==1)
-    //         StateZero();
+    // if(IIC_DataGet.u8date==1)
+    // Trace();
+    // Angle_Trace();
+    // Motor_Start('L',150);
+    // Motor_Start('r',-150);
+
     // }
     // RDlongData= RecieveData[2]<<12+RecieveData[3]<<8+RecieveData[4]<<4+RecieveData[5];
 }
@@ -35,8 +38,9 @@ void loop()
 void Confinguration()
 {
     IIC_Init();
+    Trace_Gray_Pin_Init();
+    Motor_Pin_Init();
     Serial.begin(115200); // 串口初始化化
-    mySerial.begin(115200);
 }
 
 void StateZero() // 灰度循迹
@@ -46,16 +50,14 @@ void StateZero() // 灰度循迹
 void StateOne() // 角度循迹
 {
     Angle_Trace();
-
 }
 void StateTwo() // 过隧道
 {
     Trace();
     Servo_Enable(0);
-    ServoGo(0,Hole_ServoAngle);
+    ServoGo(0, Hole_ServoAngle);
 }
 void StateThree() // 灰度循迹
 {
     Trace();
-    
 }
