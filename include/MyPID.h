@@ -1,6 +1,9 @@
 #ifndef __MyPID_H
 #define __MyPID_H
-#include "Arduino.h"
+
+#define maxIntegral 200
+#define minIntegral	-200
+
 //位置式PID控制结构体
 typedef struct {
   float Target_value;   //目标值
