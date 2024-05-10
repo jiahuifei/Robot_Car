@@ -2,72 +2,104 @@
 
 // LedControl lc = LedControl(12, 11, 13, 1);
 // u8 lc1 = 0, lc2 = 0, lc3 = 0;
-
-SoftwareSerial mySerial(9, 10); // 定义D9、D10分别为RX、TX
 Ultrasonic myHC(Trig_Pin,Echo_Pin);
-
 unsigned char Re_buf[11], counter = 0;
-unsigned char sign = 0;
 static float angle[3];
 
-u8 SendHex[6];
-
-
-void Confinguration(void) // 外设初始化总函数
+struct myData
 {
-  // IIC_Init();
-  // HC_SR04_Pin_Init();
-  // RedLight_Pin_Init();
-  Serial.begin(115200);
-  myComm.begin(115200);
-}
+    char  state;
+    uint8_t  u8data;
+    float   floatdata;
+};
+
+myData SendData;
+static PID myPID;
+double PIDAngle;
+Servo myServo;
 
 void setup()
 {
   Confinguration();
+
   // lc.shutdown(0, false);
   // lc.setIntensity(0, 8);
   // lc.clearDisplay(0);
 }
 void loop()
 {
-  // 超声传感器检测斜坡
-  if ( myHC.read()< Highdis)
-  {
-    SendData.state = 's';
-    SendData.u8data= 1;
-    myComm.send(SendData);
-    // IIC_Transmission(Servent_Address,IIC_State);
-    // Serial.print(IIC_State.u8date,HEX);
-    // lc.setRow(0, 0, lc1++);
-    // Serial.println("i am here");
-    // Serial.println();
-  }
-  // 隧道红外检测
-  if (!Top_RedLight_value)
-  {
-    SendData.state = 's';
-    SendData.u8data= 2;
-    myComm.send(SendData);
-    // IIC_Transmission(Servent_Address, IIC_State);
-    // lc.setRow(0, 1, lc2++);
-    // Serial.println("i am here1");
-    // Serial.println();
-  }
-  //  任务红外检测
-  if (!Bottom_RedLight_value)
-  {
-    SendData.state = 's';
-    SendData.u8data= 3;
-    myComm.send(SendData);
-    // IIC_Transmission(Servent_Address, IIC_State);
-    // lc.setRow(0, 2, lc3++);
-    // Serial.println("i am here2");
-    // Serial.println();
-  }
+  // // 超声传感器检测斜坡
+  // if ( myHC.read()< Highdis)
+  // {
+  //   IIC_State.u8date= 1;
+  //   IIC_State.intdate=0;
+  //   IIC_Transmission(Servent_Address,IIC_State);
+  //   // Serial.print(IIC_State.u8date,HEX);
+  //   // lc.setRow(0, 0, lc1++);
+  //   // Serial.println("i am here");
+  //   // Serial.println();
+  // }
+  // // 隧道红外检测
+  // if (!Top_RedLight_value)
+  // {
+  //   IIC_State.u8date= 2;
+  //   IIC_State.intdate=0;
+  //   IIC_Transmission(Servent_Address, IIC_State);
+  //   // lc.setRow(0, 1, lc2++);
+  //   // Serial.println("i am here1");
+  //   // Serial.println();
+  // }
+  // //  任务红外检测
+  // if (!Bottom_RedLight_value)
+  // {
+  //   IIC_State.u8date= 3;
+  //   IIC_State.intdate=0;
+  //   IIC_Transmission(Servent_Address, IIC_State);
+  //   // lc.setRow(0, 2, lc3++);
+  //   // Serial.println("i am here2");
+  //   // Serial.println();
+  // }
   serialEvent();
   delay(1);
+
 }
+void Confinguration(void) // 外设初始化总函数
+{
+  // IIC_Init();
+  // HC_SR04_Pin_Init();
+  // RedLight_Pin_Init();
+  MsTimer2::set(10, myTimerFunction);//每设置毫秒执行一次
+  MsTimer2::start();  // 启动定时器
+  {
+    myPID.Target_value=0.0;				
+    myPID.Output_value=0.0;
+    myPID.NowError=0.0;
+    myPID.LastError=0.0;
+    myPID.Integral=0.0;
+    myPID.Kp = 0.2;
+    myPID.Ki = 0.01;
+    myPID.Kd = 0.05;
+  }
+    myServo.attach(4);								//	设置端口
+    myServo.write(67);							//	舵机角度归0
+    Serial.begin(115200);
+  }
+void myTimerFunction()
+{
+  PIDAngle=67.0-PosionPID_Realize(&myPID,angle[0]);
+  if(myPID.Integral>45)
+    myPID.Integral=45;
+    else if(myPID.Integral<-45)
+    myPID.Integral=-45;
+  myServo.write((int)PIDAngle);
+  Serial.println("here");
+  Serial.println(PosionPID_Realize(&myPID,angle[0])); 
+  Serial.println(PIDAngle);
+  Serial.println(myPID.NowError);
+  Serial.println(myPID.Integral);
+
+}
+
 void serialEvent()
 {
   while(Serial.available())
@@ -100,17 +132,10 @@ void serialEvent()
           // // Serial.print(" ");
           // Serial.print(angle[2]);
           // Serial.println();
-          int64_t SendAngle=int64_t (angle[2]*100);
-          if(SendHex[0]=='s')
-          {
-            SendHex[0] = 'a';
-            SendHex[1] = 0;
-            mySerial.write(SendAngle>>32);
-            mySerial.write(SendAngle>>16);
-            mySerial.write(SendAngle>>8);
-            mySerial.write(SendAngle);
 
-          }
+          IIC_Duoji.u8date=0;
+          IIC_Duoji.intdate=int (angle[2]*100);
+          IIC_Transmission(Servent_Address,IIC_Duoji);
           break;
         }
       }
