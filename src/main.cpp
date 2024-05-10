@@ -12,15 +12,6 @@ static float angle[3];
 
 u8 SendHex[6];
 
-struct myData
-{
-    char  state;
-    uint8_t  u8data;
-    float   floatdata;
-};
-myData SendData;
-SoftSerialCommunication<myData> myComm(9, 10);
-
 
 void Confinguration(void) // 外设初始化总函数
 {

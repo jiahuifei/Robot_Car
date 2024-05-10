@@ -1,25 +1,21 @@
 #include "main.h"
 
-template <typename T>
-SoftSerialCommunication<T>::SoftSerialCommunication(int rx, int tx) : _mySerial(rx, tx) {}
 
-template <typename T>
-void SoftSerialCommunication<T>::begin(long speed)
+SoftSerialCommunication::SoftSerialCommunication(int rx, int tx) : _mySerial(rx, tx) {}
+
+void SoftSerialCommunication::begin(long speed)
 {
     _mySerial.begin(speed);
 }
 
-template <typename T>
-void SoftSerialCommunication<T>::send(T dataToSend)
+void SoftSerialCommunication::send(const MyData& dataToSend)
 {
-    _mySerial.write((char*)&dataToSend, sizeof(dataToSend));
+    _mySerial.write((const byte*)&dataToSend, sizeof(dataToSend));
 }
 
-template <typename T>
-void SoftSerialCommunication<T>::receive(T* dataReceived)
+void SoftSerialCommunication::receive(MyData* dataReceived)
 {
-    if (_mySerial.available())
+    if (_mySerial.available() >= sizeof(*dataReceived))
     {
         _mySerial.readBytes((char*)dataReceived, sizeof(*dataReceived));
     }
-}
