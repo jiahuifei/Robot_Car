@@ -1,6 +1,6 @@
 #include "main.h"
 LedControl lc = LedControl(12, 11, 13, 1);
-static u8 lc1 = 0, lc2 = 0, lc3 = 0;
+// static u8 lc1 = 0, lc2 = 0, lc3 = 0;
 // SoftwareSerial mySerial(13, 11);
 
 Ultrasonic myHC(Trig_Pin, Echo_Pin);
