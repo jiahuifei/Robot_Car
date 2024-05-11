@@ -7,6 +7,8 @@
 #include <Servo.h>
 #include <Wire.h>
 #include "SoftwareSerial.h"
+#include "Ultrasonic.h"
+
 //用户头文件
 #include "MPU6050.h"
 #include "MyPID.h"
@@ -17,9 +19,12 @@
 #include "HC_SR04.h"
 #include "Grayscale.h"
 
+extern u8 trace_state;
+
 void Confinguration();
 void StateZero();//灰度循迹
 void StateOne();
 void StateTwo();
 void StateThree();
+
 #endif

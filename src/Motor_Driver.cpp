@@ -106,22 +106,22 @@ void Trace()
 
 void Angle_Trace()
 {
-    AngleValue=IIC_DataGet.intdate;
-    Serial.println(AngleValue);
-  if(AngleValue/100.0>1.5)//右转
-  {
-    // Motor_Start('L',220);
-    // Motor_Start('r',-150);
-    Serial.println("r");
-  }else if (AngleValue/100.0<-1.5)//左转
-  {
-    // Motor_Start('l',-150);
-    // Motor_Start('r',220);
-     Serial.println("l");
-  }else
-  {
-    // Motor_Start('l',220);
-    // Motor_Start('r',220);
-    Serial.println("z");
-  }
+  //   AngleValue=IIC_Receieve();
+  //   Serial.println(AngleValue);
+  // if(AngleValue/100.0>1.5)//右转
+  // {
+  //   // Motor_Start('L',220);
+  //   // Motor_Start('r',-150);
+  //   Serial.println("r");
+  // }else if (AngleValue/100.0<-1.5)//左转
+  // {
+  //   // Motor_Start('l',-150);
+  //   // Motor_Start('r',220);
+  //    Serial.println("l");
+  // }else
+  // {
+  //   // Motor_Start('l',220);
+  //   // Motor_Start('r',220);
+  //   Serial.println("z");
+  // }
 }

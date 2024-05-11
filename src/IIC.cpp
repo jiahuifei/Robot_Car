@@ -1,7 +1,20 @@
 #include "main.h"
+
+typedef struct
+{
+    char head;
+    uint8_t u8date;
+    int intdate;
+}Information;
+
+Information IIC_DataGet=
+{
+    .head=0,
+    .u8date=0,
+    .intdate=0
+};
+
 static u8 flag = 0;
-LedControl lc = LedControl(12, 11, 13, 1);
-static u8 lc1 = 0, lc2 = 0, lc3 = 0;
 void IIC_Init()
 {
   Wire.begin(0xAA); // Wire初始化, 并以从设备地址0xAA的身份加入IIc总线
@@ -25,24 +38,46 @@ void receiveEvent(int Angthing)
     {
       IIC_DataGet.head = Wire.read(); // 以字符形式接收数据
       // lc.setRow(0,0,lc1++);
-      Serial.println(IIC_DataGet.head); // 串口输出该字符串
+      // Serial.println(IIC_DataGet.head); // 串口输出该字符串
       flag++;
     }
     else if (flag == 1)
     {
       IIC_DataGet.u8date = Wire.read(); // 以字符形式接收数据
       // lc.setRow(0,1,lc2++);
-      Serial.println(IIC_DataGet.u8date); // 串口输出该字符串
+      // Serial.println(IIC_DataGet.u8date); // 串口输出该字符串
       flag++;
     }
     else if (flag == 2)
     {
       IIC_DataGet.intdate = IIC_Read_IntNumber(); // 以字符形式接收数据
       // lc.setRow(0,2,lc3++);
-      AngleValue=IIC_Read_IntNumber();
-      Serial.println(IIC_DataGet.intdate); // 串口输出该字符串
+      // Serial.println(IIC_DataGet.intdate); // 串口输出该字符串
       flag = 0;
 
+      if(trace_state<5&&trace_state>0)
+      {
+        AngleValue = IIC_DataGet.intdate;
+        Serial.println(AngleValue);
+        if (AngleValue / 100.0 > 3) // 右转
+        {
+          Motor_Start('L', 220);
+          Motor_Start('r', -150);
+          Serial.println("r");
+        }
+        else if (AngleValue / 100.0 < -3) // 左转
+        {
+          Motor_Start('l', -150);
+          Motor_Start('r', 220);
+          Serial.println("l");
+        }
+        else
+        {
+          Motor_Start('l', 220);
+          Motor_Start('r', 220);
+          Serial.println("z");
+        }
+      }
     }
     // long Angle= Wire.read(); // 以字符形式接收数据
     // Serial.println(Angle); // 串口输出该字符串
