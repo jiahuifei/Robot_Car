@@ -139,9 +139,9 @@ void serialEvent()
           Serial.println();
           Serialflag = false; 
 
-              IIC_Duoji.u8date = 0;
-    IIC_Duoji.intdate = int(angle[2] * 100);
-    IIC_Transmission(Servent_Address,IIC_Duoji);
+          IIC_Duoji.u8date = 0;
+          IIC_Duoji.intdate = int(angle[2] * 100);
+          IIC_Transmission(Servent_Address,IIC_Duoji);
 
           break;
         }
