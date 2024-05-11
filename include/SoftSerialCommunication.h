@@ -1,9 +1,6 @@
-#include "main.h"
-
 #ifndef SoftSerialCommunication_h
 #define SoftSerialCommunication_h
 
-#include "main.h"
 #include "SoftwareSerial.h"
 
 struct MyData {

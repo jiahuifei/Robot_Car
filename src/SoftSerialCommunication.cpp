@@ -19,3 +19,4 @@ void SoftSerialCommunication::receive(MyData* dataReceived)
     {
         _mySerial.readBytes((char*)dataReceived, sizeof(*dataReceived));
     }
+}
