@@ -22,10 +22,13 @@ static Information IIC_Duoji=
     .u8date=0,
     .intdate=0
 };
-
+//IIC状态初始机初始化
 void IIC_Init();
+//IIC数据请求和发送
 void IIC_Transmission(u8 addr,Information Inform);
+//IIC数据应答和接受
 void IIC_Recieve();
+//IIC发送四字节函数
 void IIC_Wirte_IntNumber(int dataToSend);
 
 #endif
